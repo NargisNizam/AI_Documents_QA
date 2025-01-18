@@ -1,0 +1,76 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* --------------------- NAVBAR ----------------------------- */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+}
+
+.navbar .head {
+  display: flex;
+  gap: 2rem; /* Add spacing between elements */
+}
+
+.navbar .icons {
+  display: flex;
+  gap: 2rem; /* Add spacing between icons */
+}
+
+/* ---------------------- HERO SECTION ----------------------------------- */
+.HeroImage {
+  width: 100%; /* Make the image container full width */
+  height: auto; /* Maintain aspect ratio */
+  position: relative; /* For positioning child elements */
+}
+
+.heroText {
+  width: 90%; /* Make responsive on smaller screens */
+  max-width: 34rem; /* Limit width on larger screens */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Center element */
+  border-radius: 6px;
+  background-color: #fff3e3; /* Optional background for contrast */
+  padding: 2rem;
+  line-height: 1.8rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
+}
+
+.heroText h6 {
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #666; /* Neutral color for subtitle */
+  margin-bottom: 0.5rem;
+}
+
+.heroText h3 {
+  font-size: 2rem; /* Smaller for responsiveness */
+  font-weight: bolder;
+  color: #b88e2f;
+  margin-bottom: 1rem;
+}
+
+.heroText p {
+  color: #444; /* Neutral readable color */
+  font-size: 1rem;
+  margin-bottom: 1.5rem; /* Add spacing after paragraph */
+}
+
+.heroText .buyBtn {
+  background-color: #b88e2f;
+  padding: 0.75rem 2rem;
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.heroText .buyBtn:hover {
+  background-color: #a07c28; /* Slightly darker shade for hover */
+}
