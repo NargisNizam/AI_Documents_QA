@@ -1,40 +1,41 @@
-# Operating system files
+# Ignore system files
 .DS_Store
 Thumbs.db
-
-# Logs
-*.log
+desktop.ini
+NTUSER.DAT*
+*.lnk
 
 # Node.js dependencies
 node_modules/
 npm-debug.log*
+
+# Logs
+*.log
 
 # Environment files
 .env
 .env.local
 .env.*.local
 
-# Personal/OS-specific configurations
-*.bash_history
-*.gitconfig
-*.npmrc
-*.lesshst
+# Ignore parent directories
+../../*
 
-# Editor and IDE specific files
+# Editor-specific files
 .vscode/
 .idea/
 *.swp
 
-# Ignore all parent directories
-../../*
-
-# Exclude personal directories (examples from your output)
-3D Objects/
-AppData/
-Contacts/
-Misbah/
-Hafsa (Person 1) - Chrome.lnk
-
-# Specific temporary files
-*.lnk
+# Ignore temporary files
 *.tmp
+*.cache
+*.lock
+
+# Ignore personal directories from screenshot
+/Documents/
+/Downloads/
+/Favorites/
+/OneDrive/
+/Pictures/
+/Videos/
+/Saved Games/
+/Searches/
