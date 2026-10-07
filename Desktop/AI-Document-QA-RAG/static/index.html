@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Document QA</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+            background: #f5f7fb;
+            color: #1f2937;
+        }
+
+        .navbar {
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 18px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .badge {
+            background: #eef2ff;
+            color: #4f46e5;
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .container {
+            max-width: 1050px;
+            margin: 50px auto;
+            padding: 0 20px;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .hero h1 {
+            font-size: 42px;
+            margin-bottom: 12px;
+        }
+
+        .hero h1 span {
+            color: #4f46e5;
+        }
+
+        .hero p {
+            color: #6b7280;
+            font-size: 17px;
+        }
+
+        .documents {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 18px;
+            padding: 24px;
+            margin-bottom: 25px;
+        }
+
+        .documents h2 {
+            font-size: 18px;
+            margin-bottom: 18px;
+        }
+
+        .document-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .document {
+            background: #f8fafc;
+            border: 1px solid #e5e7eb;
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-size: 14px;
+        }
+
+        .question-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 18px;
+            padding: 25px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.04);
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 130px;
+            border: 1px solid #d1d5db;
+            border-radius: 12px;
+            padding: 16px;
+            font-size: 16px;
+            resize: vertical;
+            outline: none;
+        }
+
+        textarea:focus {
+            border-color: #6366f1;
+        }
+
+        button {
+            margin-top: 15px;
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 12px;
+            background: #4f46e5;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #4338ca;
+        }
+
+        button:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
+        }
+
+        .answer-card {
+            display: none;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 18px;
+            padding: 25px;
+            margin-top: 25px;
+        }
+
+        .answer-card h2 {
+            margin-bottom: 15px;
+        }
+
+        #answer {
+            line-height: 1.7;
+            color: #374151;
+            white-space: pre-wrap;
+        }
+
+        .sources {
+            margin-top: 22px;
+            padding-top: 18px;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .sources h3 {
+            font-size: 15px;
+            margin-bottom: 10px;
+        }
+
+        .source {
+            display: inline-block;
+            background: #eef2ff;
+            color: #4338ca;
+            padding: 7px 11px;
+            border-radius: 8px;
+            margin: 4px;
+            font-size: 13px;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            margin-top: 15px;
+            color: #6366f1;
+            font-size: 14px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #9ca3af;
+            font-size: 13px;
+        }
+
+        @media (max-width: 600px) {
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .container {
+                margin-top: 30px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="logo">🤖 AI Document QA</div>
+        <div class="badge">RAG Powered</div>
+    </nav>
+
+    <main class="container">
+
+        <section class="hero">
+            <h1>Ask Your <span>Documents</span></h1>
+            <p>Upload your knowledge and get intelligent answers using Retrieval-Augmented Generation.</p>
+        </section>
+
+        <section class="documents">
+            <h2>📚 Available Documents</h2>
+
+            <div class="document-list">
+                <div class="document">📄 Artificial Intelligence</div>
+                <div class="document">📄 Data Science</div>
+                <div class="document">📄 Machine Learning</div>
+                <div class="document">📄 Neural Networks</div>
+                <div class="document">📄 Python Programming</div>
+            </div>
+        </section>
+
+        <section class="question-card">
+
+            <h2>💬 Ask a Question</h2>
+
+            <textarea
+                id="question"
+                placeholder="Example: What is artificial intelligence?"
+            ></textarea>
+
+            <button id="askBtn" onclick="askQuestion()">
+                ✨ Ask AI
+            </button>
+
+            <div class="loading" id="loading">
+                🔄 Searching documents and generating answer...
+            </div>
+
+        </section>
+
+        <section class="answer-card" id="answerCard">
+
+            <h2>🧠 AI Answer</h2>
+
+            <div id="answer"></div>
+
+            <div class="sources">
+                <h3>📄 Sources</h3>
+                <div id="sources"></div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer>
+        AI Document Question Answering System • Python + FastAPI + ChromaDB + Groq
+    </footer>
+
+    <script>
+
+        async function askQuestion() {
+
+            const question = document.getElementById("question").value.trim();
+            const answerCard = document.getElementById("answerCard");
+            const answer = document.getElementById("answer");
+            const sources = document.getElementById("sources");
+            const loading = document.getElementById("loading");
+            const button = document.getElementById("askBtn");
+
+            if (!question) {
+                alert("Please enter a question.");
+                return;
+            }
+
+            button.disabled = true;
+            loading.style.display = "block";
+            answerCard.style.display = "none";
+
+            try {
+
+                const response = await fetch("/ask", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        question: question
+                    })
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.detail || "Something went wrong.");
+                }
+
+                answer.textContent = data.answer || "No answer found.";
+
+                sources.innerHTML = "";
+
+                if (data.sources && data.sources.length > 0) {
+
+                    data.sources.forEach(source => {
+
+                        const span = document.createElement("span");
+                        span.className = "source";
+                        span.textContent = source;
+
+                        sources.appendChild(span);
+
+                    });
+
+                } else {
+
+                    sources.textContent = "No sources found.";
+
+                }
+
+                answerCard.style.display = "block";
+
+            } catch (error) {
+
+                answerCard.style.display = "block";
+                answer.textContent = "Error: " + error.message;
+                sources.textContent = "";
+
+            } finally {
+
+                button.disabled = false;
+                loading.style.display = "none";
+
+            }
+        }
+
+    </script>
+
+</body>
+</html>
